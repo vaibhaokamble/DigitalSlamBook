@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,9 +29,10 @@ public class SlamBook {
 
     private String profilePhotoUrl;
 
-    @Enumerated(EnumType.STRING)
+
     private LocalDate dateOfBirth;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     private String favoriteColor;
@@ -67,4 +69,7 @@ public class SlamBook {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+
+    @OneToMany(mappedBy = "slamBook",cascade = CascadeType.ALL)
+    private List<Friend> friends = new ArrayList<>();
 }
