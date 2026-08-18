@@ -1,16 +1,21 @@
-package com.vaibhao.vk.degitalslambook.entity;
+package com.vaibhao.vk.digitalslambook.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "friends")
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
+@Builder
 public class Friend {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -45,4 +50,10 @@ public class Friend {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "slam_book_id", nullable = false)
     private SlamBook slamBook;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }

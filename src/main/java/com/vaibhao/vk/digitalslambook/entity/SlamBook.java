@@ -1,9 +1,8 @@
-package com.vaibhao.vk.degitalslambook.entity;
+package com.vaibhao.vk.digitalslambook.entity;
 
-import com.vaibhao.vk.degitalslambook.enums.Gender;
+import com.vaibhao.vk.digitalslambook.enums.Gender;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,7 +15,10 @@ import java.util.UUID;
 @Entity
 @Table(name = "slam_book")
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Builder
 public class SlamBook {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

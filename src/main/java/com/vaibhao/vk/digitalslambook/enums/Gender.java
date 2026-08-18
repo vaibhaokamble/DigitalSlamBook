@@ -1,4 +1,4 @@
-package com.vaibhao.vk.degitalslambook.enums;
+package com.vaibhao.vk.digitalslambook.enums;
 
 public enum Gender {
     MALE,
