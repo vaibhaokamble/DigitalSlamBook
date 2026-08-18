@@ -1,13 +1,18 @@
 package com.vaibhao.vk.digitalslambook.dto.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FriendRequest {
+
     private String friendName;
 
     private String relationship;
@@ -31,5 +36,4 @@ public class FriendRequest {
     private String memoryPhotoUrl;
 
     private String memoryText;
-
 }

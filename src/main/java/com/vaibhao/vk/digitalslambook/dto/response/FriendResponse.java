@@ -1,16 +1,21 @@
 package com.vaibhao.vk.digitalslambook.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FriendResponse {
 
-    private UUID id;
+    private UUID friendId;
 
     private String friendName;
 
@@ -35,4 +40,8 @@ public class FriendResponse {
     private String memoryPhotoUrl;
 
     private String memoryText;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 }

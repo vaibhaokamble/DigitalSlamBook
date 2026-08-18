@@ -20,9 +20,10 @@ import java.util.UUID;
 @Getter
 @Builder
 public class SlamBook {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID slamBookId;
 
     @Column(nullable = false)
     private String fullName;
@@ -31,7 +32,6 @@ public class SlamBook {
 
     private String profilePhotoUrl;
 
-
     private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
@@ -39,31 +39,11 @@ public class SlamBook {
 
     private String favoriteColor;
 
+    @ElementCollection
     private List<String> hobbies;
 
     @Column(length = 500)
     private String aboutMe;
-
-    @Column(nullable = false)
-    private int rating;
-
-    @Column(nullable = false)
-    private Boolean bestFriend;
-
-    private LocalDate friendshipDate;
-
-    private String songName;
-
-    private String songArtist;
-
-    private String songUrl;
-
-    private String songDedication;
-
-    private String memoryPhotoUrl;
-
-    @Column(length = 500)
-    private String memoryText;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -71,7 +51,7 @@ public class SlamBook {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-
-    @OneToMany(mappedBy = "slamBook",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "slamBook", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Friend> friends = new ArrayList<>();
 }

@@ -17,111 +17,81 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FriendService {
 
-    private final SlamBookRepository slamBookRepository;
     private final FriendRepository friendRepository;
+    private final SlamBookRepository slamBookRepository;
     private final FriendMapper friendMapper;
 
-    //Friend Service method create
-
-    public FriendResponse addFriend(UUID slamBookId, FriendRequest friendRequest) {
+    public FriendResponse addFriend(UUID slamBookId, FriendRequest request) {
 
         SlamBook slamBook = slamBookRepository.findById(slamBookId)
                 .orElseThrow(() -> new RuntimeException("SlamBook not found with id: " + slamBookId));
 
         Friend friend = Friend.builder()
-                .friendName(friendRequest.getFriendName())
-                .relationship(friendRequest.getRelationship())
-                .friendshipRating(friendRequest.getFriendshipRating())
-                .bestFriend(friendRequest.getBestFriend())
-                .friendshipDate(friendRequest.getFriendshipDate())
-                .message(friendRequest.getMessage())
-                .songName(friendRequest.getSongName())
-                .songArtist(friendRequest.getSongArtist())
-                .songUrl(friendRequest.getSongUrl())
-                .songDedication(friendRequest.getSongDedication())
-                .memoryPhotoUrl(friendRequest.getMemoryPhotoUrl())
-                .memoryText(friendRequest.getMemoryText())
+                .friendName(request.getFriendName())
+                .relationship(request.getRelationship())
+                .friendshipRating(request.getFriendshipRating())
+                .bestFriend(request.getBestFriend())
+                .friendshipDate(request.getFriendshipDate())
+                .message(request.getMessage())
+                .songName(request.getSongName())
+                .songArtist(request.getSongArtist())
+                .songUrl(request.getSongUrl())
+                .songDedication(request.getSongDedication())
+                .memoryPhotoUrl(request.getMemoryPhotoUrl())
+                .memoryText(request.getMemoryText())
+                .slamBook(slamBook)
                 .build();
 
-        Friend friendSaved = friendRepository.save(friend);
+        Friend savedFriend = friendRepository.save(friend);
 
-        return friendMapper.mapToResponse(friendSaved);
+        return friendMapper.mapToResponse(savedFriend);
     }
 
-    //Friend Service method get all
-    public List<FriendResponse> getAllFriends() {
-        List<Friend> friends = friendRepository.findAll();
-        return friendRepository.findAll().stream().map(friendMapper::mapToResponse)
+
+    public List<FriendResponse> getFriendsBySlamBook(UUID slamBookId) {
+
+        SlamBook slamBook = slamBookRepository.findById(slamBookId).orElseThrow(() -> new RuntimeException("SlamBook not found with id: " + slamBookId));
+
+        return friendRepository.findBySlamBook(slamBook)
+                .stream()
+                .map(friendMapper::mapToResponse)
                 .toList();
     }
 
-    //SlamBook Service method get by id
-    public FriendResponse getFriendById(UUID id) {
+    public FriendResponse getFriendById(UUID friendId) {
 
-        Friend friend = friendRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Friend not found with id: " + id));
+        Friend friend = friendRepository.findById(friendId).orElseThrow(() -> new RuntimeException("Friend not found with id: " + friendId));
 
         return friendMapper.mapToResponse(friend);
     }
 
-    //Friend Service method update
-    public FriendResponse updateFriend(UUID id, FriendRequest friendRequest) {
 
-        Friend friend = friendRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Friend not found with id: " + id));
+    public FriendResponse updateFriend(UUID friendId, FriendRequest request) {
 
-        friend.setFriendName(friendRequest.getFriendName());
-        friend.setRelationship(friendRequest.getRelationship());
-        friend.setFriendshipRating(friendRequest.getFriendshipRating());
-        friend.setBestFriend(friendRequest.getBestFriend());
-        friend.setFriendshipDate(friendRequest.getFriendshipDate());
-        friend.setMessage(friendRequest.getMessage());
-        friend.setSongName(friendRequest.getSongName());
-        friend.setSongArtist(friendRequest.getSongArtist());
-        friend.setSongUrl(friendRequest.getSongUrl());
-        friend.setSongDedication(friendRequest.getSongDedication());
-        friend.setMemoryPhotoUrl(friendRequest.getMemoryPhotoUrl());
-        friend.setMemoryText(friendRequest.getMemoryText());
+        Friend friend = friendRepository.findById(friendId).orElseThrow(() -> new RuntimeException("Friend not found with id: " + friendId));
 
-        Friend updatedFriend = friendRepository.save(friend);
-
-        return friendMapper.mapToResponse(updatedFriend);
-    }
-
-    //Friend Service method update by slamBookId
-    public FriendResponse updateFriendBySlamBookId(UUID slamBookId, UUID friendId, FriendRequest friendRequest) {
-        SlamBook slamBook = slamBookRepository.findById(slamBookId)
-                .orElseThrow(() -> new RuntimeException("SlamBook not found with id: " + slamBookId));
-
-        Friend friend = friendRepository.findById(friendId)
-                .orElseThrow(() -> new RuntimeException("Friend not found with id: " + friendId));
-
-        if (!friend.getSlamBook().getId().equals(slamBook.getId())) {
-            throw new RuntimeException("Friend does not belong to the specified SlamBook");
-        }
-
-        friend.setFriendName(friendRequest.getFriendName());
-        friend.setRelationship(friendRequest.getRelationship());
-        friend.setFriendshipRating(friendRequest.getFriendshipRating());
-        friend.setBestFriend(friendRequest.getBestFriend());
-        friend.setFriendshipDate(friendRequest.getFriendshipDate());
-        friend.setMessage(friendRequest.getMessage());
-        friend.setSongName(friendRequest.getSongName());
-        friend.setSongArtist(friendRequest.getSongArtist());
-        friend.setSongUrl(friendRequest.getSongUrl());
-        friend.setSongDedication(friendRequest.getSongDedication());
-        friend.setMemoryPhotoUrl(friendRequest.getMemoryPhotoUrl());
-        friend.setMemoryText(friendRequest.getMemoryText());
+        friend.setFriendName(request.getFriendName());
+        friend.setRelationship(request.getRelationship());
+        friend.setFriendshipRating(request.getFriendshipRating());
+        friend.setBestFriend(request.getBestFriend());
+        friend.setFriendshipDate(request.getFriendshipDate());
+        friend.setMessage(request.getMessage());
+        friend.setSongName(request.getSongName());
+        friend.setSongArtist(request.getSongArtist());
+        friend.setSongUrl(request.getSongUrl());
+        friend.setSongDedication(request.getSongDedication());
+        friend.setMemoryPhotoUrl(request.getMemoryPhotoUrl());
+        friend.setMemoryText(request.getMemoryText());
 
         Friend updatedFriend = friendRepository.save(friend);
 
         return friendMapper.mapToResponse(updatedFriend);
     }
 
-    //Friend Service method delete
-    public void deleteFriend(UUID id) {
-        Friend friend = friendRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Friend not found with id: " + id));
+    public void deleteFriend(UUID friendId) {
+
+        Friend friend = friendRepository.findById(friendId).orElseThrow(() -> new RuntimeException("Friend not found with id: " + friendId));
+
         friendRepository.delete(friend);
     }
 }

@@ -17,9 +17,10 @@ import java.util.UUID;
 @Getter
 @Builder
 public class Friend {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID friendId;
 
     private String friendName;
 

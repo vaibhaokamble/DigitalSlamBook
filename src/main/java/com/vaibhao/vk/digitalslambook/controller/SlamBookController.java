@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,88 +18,59 @@ public class SlamBookController {
 
     private final SlamBookService slamBookService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<ApiResponse<SlamBookResponse>> createSlamBook(@RequestBody SlamBookRequest slamBookRequest) {
+
         SlamBookResponse slamBookResponse = slamBookService.createSlamBook(slamBookRequest);
 
         ApiResponse<SlamBookResponse> apiResponse = ApiResponse.<SlamBookResponse>builder()
-                .status(HttpStatus.CREATED.value())
-                .message("SlamBook created successfully")
-                .data(slamBookResponse)
-                .build();
+                        .status(HttpStatus.CREATED.value())
+                        .message("SlamBook created successfully")
+                        .data(slamBookResponse)
+                        .build();
 
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
-    @GetMapping("/getall")
-    public ResponseEntity<ApiResponse<List<SlamBookResponse>>> getAllSlamBook() {
+    @GetMapping("/{slamBookId}")
+    public ResponseEntity<ApiResponse<SlamBookResponse>> getSlamBookById(@PathVariable UUID slamBookId) {
 
-        List<SlamBookResponse> slamBookResponses = slamBookService.getAllSlamBooks();
+        SlamBookResponse slamBookResponse = slamBookService.getSlamBookById(slamBookId);
 
-        ApiResponse<List<SlamBookResponse>> apiResponse = ApiResponse.<List<SlamBookResponse>>builder()
-                .status(HttpStatus.OK.value())
-                .message("SlamBooks retrieved successfully")
-                .data(slamBookResponses)
-                .build();
-
-        return ResponseEntity.ok(apiResponse);
-    }
-
-    @GetMapping("/get/{id}")
-    public ResponseEntity<ApiResponse<SlamBookResponse>> getSlamBookById(@PathVariable UUID id) {
-        if (id == null) {
-            ApiResponse<SlamBookResponse> apiResponse = ApiResponse.<SlamBookResponse>builder()
-                    .status(HttpStatus.BAD_REQUEST.value())
-                    .message("Invalid ID provided")
-                    .data(null)
-                    .build();
-            return ResponseEntity.badRequest().body(apiResponse);
-
-        }
-        SlamBookResponse slamBookResponse = slamBookService.getSlamBookById(id);
         ApiResponse<SlamBookResponse> apiResponse = ApiResponse.<SlamBookResponse>builder()
-                .status(HttpStatus.OK.value())
-                .message("SlamBook retrieved successfully")
-                .data(slamBookResponse)
-                .build();
+                        .status(HttpStatus.OK.value())
+                        .message("SlamBook retrieved successfully")
+                        .data(slamBookResponse)
+                        .build();
+
         return ResponseEntity.ok(apiResponse);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResponse<SlamBookResponse>> updateSlamBook(@PathVariable UUID id, @RequestBody SlamBookRequest slamBookRequest) {
-        if (id == null) {
-            ApiResponse<SlamBookResponse> apiResponse = ApiResponse.<SlamBookResponse>builder()
-                    .status(HttpStatus.BAD_REQUEST.value())
-                    .message("Invalid ID provided")
-                    .data(null)
-                    .build();
-            return ResponseEntity.badRequest().body(apiResponse);
-        }
-        SlamBookResponse slamBookResponse = slamBookService.updateSlamBook(id, slamBookRequest);
+    @PutMapping("/{slamBookId}")
+    public ResponseEntity<ApiResponse<SlamBookResponse>> updateSlamBook(@PathVariable UUID slamBookId, @RequestBody SlamBookRequest slamBookRequest) {
+
+        SlamBookResponse slamBookResponse = slamBookService.updateSlamBook(slamBookId, slamBookRequest);
+
         ApiResponse<SlamBookResponse> apiResponse = ApiResponse.<SlamBookResponse>builder()
-                .status(HttpStatus.OK.value())
-                .message("SlamBook updated successfully")
-                .data(slamBookResponse)
-                .build();
+                        .status(HttpStatus.OK.value())
+                        .message("SlamBook updated successfully")
+                        .data(slamBookResponse)
+                        .build();
+
         return ResponseEntity.ok(apiResponse);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteSlamBook(@PathVariable UUID id) {
-        if (id == null) {
-            ApiResponse<Void> apiResponse = ApiResponse.<Void>builder()
-                    .status(HttpStatus.BAD_REQUEST.value())
-                    .message("Invalid ID provided")
-                    .data(null)
-                    .build();
-            return ResponseEntity.badRequest().body(apiResponse);
-        }
-        slamBookService.deleteSlamBook(id);
+    @DeleteMapping("/{slamBookId}")
+    public ResponseEntity<ApiResponse<Void>> deleteSlamBook(@PathVariable UUID slamBookId) {
+
+        slamBookService.deleteSlamBook(slamBookId);
+
         ApiResponse<Void> apiResponse = ApiResponse.<Void>builder()
-                .status(HttpStatus.OK.value())
-                .message("SlamBook deleted successfully")
-                .data(null)
-                .build();
+                        .status(HttpStatus.OK.value())
+                        .message("SlamBook deleted successfully")
+                        .data(null)
+                        .build();
+
         return ResponseEntity.ok(apiResponse);
     }
 }

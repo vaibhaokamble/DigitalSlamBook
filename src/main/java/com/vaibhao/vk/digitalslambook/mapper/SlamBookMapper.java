@@ -10,24 +10,17 @@ public class SlamBookMapper {
     public SlamBookResponse mapToResponse(SlamBook slamBook) {
 
         return SlamBookResponse.builder()
-                .id(slamBook.getId())
+                .slamBookId(slamBook.getSlamBookId())
                 .fullName(slamBook.getFullName())
                 .nickName(slamBook.getNickName())
                 .profilePhotoUrl(slamBook.getProfilePhotoUrl())
-                .dateOfBirth(slamBook.getDateOfBirth() != null ? slamBook.getDateOfBirth().toString() : null)
+                .dateOfBirth(slamBook.getDateOfBirth())
                 .gender(slamBook.getGender())
                 .favoriteColor(slamBook.getFavoriteColor())
-                .hobbies(String.valueOf(slamBook.getHobbies()))
+                .hobbies(slamBook.getHobbies())
                 .aboutMe(slamBook.getAboutMe())
-                .rating(slamBook.getRating())
-                .bestFriend(slamBook.getBestFriend())
-                .friendshipDate(slamBook.getFriendshipDate() != null ? slamBook.getFriendshipDate().toString() : null)
-                .songName(slamBook.getSongName())
-                .songArtist(slamBook.getSongArtist())
-                .songUrl(slamBook.getSongUrl())
-                .songDedication(slamBook.getSongDedication())
-                .memoryPhotoUrl(slamBook.getMemoryPhotoUrl())
-                .memoryText(slamBook.getMemoryText())
+                .createdAt(slamBook.getCreatedAt())
+                .updatedAt(slamBook.getUpdatedAt())
                 .build();
     }
 }

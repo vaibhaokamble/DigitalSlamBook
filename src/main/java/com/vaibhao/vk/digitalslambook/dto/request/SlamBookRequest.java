@@ -1,27 +1,33 @@
 package com.vaibhao.vk.digitalslambook.dto.request;
 
 import com.vaibhao.vk.digitalslambook.enums.Gender;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SlamBookRequest {
+
     private String fullName;
+
     private String nickName;
+
     private String profilePhotoUrl;
-    private String dateOfBirth;
+
+    private LocalDate dateOfBirth;
+
     private Gender gender;
+
     private String favoriteColor;
-    private String hobbies;
+
+    private List<String> hobbies;
+
     private String aboutMe;
-    private int rating;
-    private Boolean bestFriend;
-    private String friendshipDate;
-    private String songName;
-    private String songArtist;
-    private String songUrl;
-    private String songDedication;
-    private String memoryPhotoUrl;
-    private String memoryText;
 }

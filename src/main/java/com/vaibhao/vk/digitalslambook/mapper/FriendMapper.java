@@ -4,20 +4,18 @@ import com.vaibhao.vk.digitalslambook.dto.response.FriendResponse;
 import com.vaibhao.vk.digitalslambook.entity.Friend;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-
 @Component
 public class FriendMapper {
 
     public FriendResponse mapToResponse(Friend friend) {
 
         return FriendResponse.builder()
-                .id(friend.getId())
+                .friendId(friend.getFriendId())
                 .friendName(friend.getFriendName())
                 .relationship(friend.getRelationship())
                 .friendshipRating(friend.getFriendshipRating())
                 .bestFriend(friend.getBestFriend())
-                .friendshipDate(friend.getFriendshipDate() != null ? LocalDate.parse(friend.getFriendshipDate().toString()) : null)
+                .friendshipDate(friend.getFriendshipDate())
                 .message(friend.getMessage())
                 .songName(friend.getSongName())
                 .songArtist(friend.getSongArtist())
@@ -25,6 +23,8 @@ public class FriendMapper {
                 .songDedication(friend.getSongDedication())
                 .memoryPhotoUrl(friend.getMemoryPhotoUrl())
                 .memoryText(friend.getMemoryText())
+                .createdAt(friend.getCreatedAt())
+                .updatedAt(friend.getUpdatedAt())
                 .build();
     }
 }
