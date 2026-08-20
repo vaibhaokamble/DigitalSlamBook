@@ -1,5 +1,6 @@
 package com.vaibhao.vk.digitalslambook.dto.request;
 
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,27 +14,39 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class FriendRequest {
 
+    @NotBlank(message = "Friend name is required")
     private String friendName;
 
+    @NotBlank(message = "Relationship is required")
     private String relationship;
 
+    @Min(value = 1, message = "Friendship rating must be at least 1")
+    @Max(value = 10, message = "Friendship rating must not exceed 10")
     private int friendshipRating;
 
     private Boolean bestFriend;
 
+    @Past(message = "Friendship date must be in the past")
     private LocalDate friendshipDate;
 
+    @Size(max = 500, message = "Message must not exceed 500 characters")
     private String message;
 
+    @Size(max = 100, message = "Song name must not exceed 100 characters")
     private String songName;
 
+    @Size(max = 100, message = "Song artist must not exceed 100 characters")
     private String songArtist;
 
+    @Size(max = 500, message = "Song URL must not exceed 500 characters")
     private String songUrl;
 
+    @Size(max = 500, message = "Song dedication must not exceed 500 characters")
     private String songDedication;
 
+    @Size(max = 500, message = "Memory photo URL must not exceed 500 characters")
     private String memoryPhotoUrl;
 
+    @Size(max = 500, message = "Memory text must not exceed 500 characters")
     private String memoryText;
 }
