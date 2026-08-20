@@ -4,6 +4,7 @@ import com.vaibhao.vk.digitalslambook.dto.request.FriendRequest;
 import com.vaibhao.vk.digitalslambook.dto.response.FriendResponse;
 import com.vaibhao.vk.digitalslambook.entity.Friend;
 import com.vaibhao.vk.digitalslambook.entity.SlamBook;
+import com.vaibhao.vk.digitalslambook.exception.ResourceNotFoundException;
 import com.vaibhao.vk.digitalslambook.mapper.FriendMapper;
 import com.vaibhao.vk.digitalslambook.repository.FriendRepository;
 import com.vaibhao.vk.digitalslambook.repository.SlamBookRepository;
@@ -24,7 +25,7 @@ public class FriendService {
     public FriendResponse addFriend(UUID slamBookId, FriendRequest request) {
 
         SlamBook slamBook = slamBookRepository.findById(slamBookId)
-                .orElseThrow(() -> new RuntimeException("SlamBook not found with id: " + slamBookId));
+                .orElseThrow(() -> new ResourceNotFoundException("SlamBook not found with id: " + slamBookId));
 
         Friend friend = Friend.builder()
                 .friendName(request.getFriendName())
@@ -50,7 +51,7 @@ public class FriendService {
 
     public List<FriendResponse> getFriendsBySlamBook(UUID slamBookId) {
 
-        SlamBook slamBook = slamBookRepository.findById(slamBookId).orElseThrow(() -> new RuntimeException("SlamBook not found with id: " + slamBookId));
+        SlamBook slamBook = slamBookRepository.findById(slamBookId).orElseThrow(() -> new ResourceNotFoundException("SlamBook not found with id: " + slamBookId));
 
         return friendRepository.findBySlamBook(slamBook)
                 .stream()
@@ -60,7 +61,7 @@ public class FriendService {
 
     public FriendResponse getFriendById(UUID friendId) {
 
-        Friend friend = friendRepository.findById(friendId).orElseThrow(() -> new RuntimeException("Friend not found with id: " + friendId));
+        Friend friend = friendRepository.findById(friendId).orElseThrow(() -> new ResourceNotFoundException("Friend not found with id: " + friendId));
 
         return friendMapper.mapToResponse(friend);
     }
@@ -68,7 +69,7 @@ public class FriendService {
 
     public FriendResponse updateFriend(UUID friendId, FriendRequest request) {
 
-        Friend friend = friendRepository.findById(friendId).orElseThrow(() -> new RuntimeException("Friend not found with id: " + friendId));
+        Friend friend = friendRepository.findById(friendId).orElseThrow(() -> new ResourceNotFoundException("Friend not found with id: " + friendId));
 
         friend.setFriendName(request.getFriendName());
         friend.setRelationship(request.getRelationship());
@@ -90,7 +91,7 @@ public class FriendService {
 
     public void deleteFriend(UUID friendId) {
 
-        Friend friend = friendRepository.findById(friendId).orElseThrow(() -> new RuntimeException("Friend not found with id: " + friendId));
+        Friend friend = friendRepository.findById(friendId).orElseThrow(() -> new ResourceNotFoundException("Friend not found with id: " + friendId));
 
         friendRepository.delete(friend);
     }

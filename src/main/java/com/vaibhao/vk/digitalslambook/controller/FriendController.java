@@ -21,7 +21,7 @@ public class FriendController {
     private final FriendService friendService;
 
     @PostMapping("/slambook/{slamBookId}")
-    public ResponseEntity<ApiResponse<FriendResponse>> addFriend(@Valid @PathVariable UUID slamBookId, @RequestBody FriendRequest friendRequest) {
+    public ResponseEntity<ApiResponse<FriendResponse>> addFriend(@PathVariable UUID slamBookId, @Valid @RequestBody FriendRequest friendRequest) {
 
         FriendResponse friendResponse = friendService.addFriend(slamBookId, friendRequest);
 
@@ -35,7 +35,7 @@ public class FriendController {
     }
 
     @GetMapping("/slambook/{slamBookId}")
-    public ResponseEntity<ApiResponse<List<FriendResponse>>> getFriendsBySlamBook(@Valid @PathVariable UUID slamBookId) {
+    public ResponseEntity<ApiResponse<List<FriendResponse>>> getFriendsBySlamBook(@PathVariable UUID slamBookId) {
 
         List<FriendResponse> friendResponses = friendService.getFriendsBySlamBook(slamBookId);
 
@@ -50,7 +50,7 @@ public class FriendController {
     }
 
     @GetMapping("/{friendId}")
-    public ResponseEntity<ApiResponse<FriendResponse>> getFriendById(@Valid @PathVariable UUID friendId) {
+    public ResponseEntity<ApiResponse<FriendResponse>> getFriendById(@PathVariable UUID friendId) {
 
         FriendResponse friendResponse =
                 friendService.getFriendById(friendId);
@@ -66,7 +66,7 @@ public class FriendController {
     }
 
     @PutMapping("/{friendId}")
-    public ResponseEntity<ApiResponse<FriendResponse>> updateFriend(@Valid @PathVariable UUID friendId, @RequestBody FriendRequest friendRequest) {
+    public ResponseEntity<ApiResponse<FriendResponse>> updateFriend(@PathVariable UUID friendId, @Valid @RequestBody FriendRequest friendRequest) {
 
         FriendResponse friendResponse = friendService.updateFriend(friendId, friendRequest);
 
@@ -80,7 +80,7 @@ public class FriendController {
     }
 
     @DeleteMapping("/{friendId}")
-    public ResponseEntity<ApiResponse<Void>> deleteFriend(@Valid @PathVariable UUID friendId) {
+    public ResponseEntity<ApiResponse<Void>> deleteFriend(@PathVariable UUID friendId) {
 
         friendService.deleteFriend(friendId);
 

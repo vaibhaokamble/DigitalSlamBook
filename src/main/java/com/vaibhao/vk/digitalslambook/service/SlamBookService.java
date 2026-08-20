@@ -3,6 +3,7 @@ package com.vaibhao.vk.digitalslambook.service;
 import com.vaibhao.vk.digitalslambook.dto.request.SlamBookRequest;
 import com.vaibhao.vk.digitalslambook.dto.response.SlamBookResponse;
 import com.vaibhao.vk.digitalslambook.entity.SlamBook;
+import com.vaibhao.vk.digitalslambook.exception.ResourceNotFoundException;
 import com.vaibhao.vk.digitalslambook.mapper.SlamBookMapper;
 import com.vaibhao.vk.digitalslambook.repository.SlamBookRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,14 +38,14 @@ public class SlamBookService {
 
     public SlamBookResponse getSlamBookById(UUID slamBookId) {
 
-        SlamBook slamBook = slamBookRepository.findById(slamBookId).orElseThrow(() -> new RuntimeException("SlamBook not found with id: " + slamBookId));
+        SlamBook slamBook = slamBookRepository.findById(slamBookId).orElseThrow(() -> new ResourceNotFoundException("SlamBook not found with id: " + slamBookId));
 
         return slamBookMapper.mapToResponse(slamBook);
     }
 
     public SlamBookResponse updateSlamBook(UUID slamBookId, SlamBookRequest request) {
 
-        SlamBook slamBook = slamBookRepository.findById(slamBookId).orElseThrow(() -> new RuntimeException("SlamBook not found with id: " + slamBookId));
+        SlamBook slamBook = slamBookRepository.findById(slamBookId).orElseThrow(() -> new ResourceNotFoundException("SlamBook not found with id: " + slamBookId));
 
         slamBook.setFullName(request.getFullName());
         slamBook.setNickName(request.getNickName());
@@ -62,7 +63,7 @@ public class SlamBookService {
 
     public void deleteSlamBook(UUID slamBookId) {
 
-        SlamBook slamBook = slamBookRepository.findById(slamBookId).orElseThrow(() -> new RuntimeException("SlamBook not found with id: " + slamBookId));
+        SlamBook slamBook = slamBookRepository.findById(slamBookId).orElseThrow(() -> new ResourceNotFoundException("SlamBook not found with id: " + slamBookId));
 
         slamBookRepository.delete(slamBook);
     }

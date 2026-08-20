@@ -4,6 +4,7 @@ import com.vaibhao.vk.digitalslambook.dto.request.SlamBookRequest;
 import com.vaibhao.vk.digitalslambook.dto.response.ApiResponse;
 import com.vaibhao.vk.digitalslambook.dto.response.SlamBookResponse;
 import com.vaibhao.vk.digitalslambook.service.SlamBookService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class SlamBookController {
     private final SlamBookService slamBookService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<SlamBookResponse>> createSlamBook(@RequestBody SlamBookRequest slamBookRequest) {
+    public ResponseEntity<ApiResponse<SlamBookResponse>> createSlamBook(@Valid @RequestBody SlamBookRequest slamBookRequest) {
 
         SlamBookResponse slamBookResponse = slamBookService.createSlamBook(slamBookRequest);
 
@@ -47,7 +48,7 @@ public class SlamBookController {
     }
 
     @PutMapping("/{slamBookId}")
-    public ResponseEntity<ApiResponse<SlamBookResponse>> updateSlamBook(@PathVariable UUID slamBookId, @RequestBody SlamBookRequest slamBookRequest) {
+    public ResponseEntity<ApiResponse<SlamBookResponse>> updateSlamBook(@PathVariable UUID slamBookId, @Valid @RequestBody SlamBookRequest slamBookRequest) {
 
         SlamBookResponse slamBookResponse = slamBookService.updateSlamBook(slamBookId, slamBookRequest);
 
