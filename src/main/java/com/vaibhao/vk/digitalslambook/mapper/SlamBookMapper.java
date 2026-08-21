@@ -17,8 +17,9 @@ public class SlamBookMapper {
                 .dateOfBirth(slamBook.getDateOfBirth())
                 .gender(slamBook.getGender())
                 .favoriteColor(slamBook.getFavoriteColor())
-                .hobbies(slamBook.getHobbies())
+                .hobbies(slamBook.getHobbies() != null ? new java.util.ArrayList<>(slamBook.getHobbies()) : null)
                 .aboutMe(slamBook.getAboutMe())
+                .shareToken(slamBook.getShareToken())
                 .createdAt(slamBook.getCreatedAt())
                 .updatedAt(slamBook.getUpdatedAt())
                 .build();

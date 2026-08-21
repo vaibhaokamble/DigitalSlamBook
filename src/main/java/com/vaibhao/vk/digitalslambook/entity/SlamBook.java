@@ -45,6 +45,9 @@ public class SlamBook {
     @Column(length = 500)
     private String aboutMe;
 
+    @Column(unique = true)
+    private String shareToken;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 

@@ -33,6 +33,28 @@ public class SlamBookController {
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
+    @GetMapping
+    public ResponseEntity<ApiResponse<java.util.List<SlamBookResponse>>> getAllSlamBooks() {
+        java.util.List<SlamBookResponse> slamBookResponses = slamBookService.getAllSlamBooks();
+        ApiResponse<java.util.List<SlamBookResponse>> apiResponse = ApiResponse.<java.util.List<SlamBookResponse>>builder()
+                .status(HttpStatus.OK.value())
+                .message("SlamBooks retrieved successfully")
+                .data(slamBookResponses)
+                .build();
+        return ResponseEntity.ok(apiResponse);
+    }
+
+    @GetMapping("/share/{shareToken}")
+    public ResponseEntity<ApiResponse<SlamBookResponse>> getSlamBookByShareToken(@PathVariable String shareToken) {
+        SlamBookResponse slamBookResponse = slamBookService.getSlamBookByShareToken(shareToken);
+        ApiResponse<SlamBookResponse> apiResponse = ApiResponse.<SlamBookResponse>builder()
+                .status(HttpStatus.OK.value())
+                .message("SlamBook retrieved successfully")
+                .data(slamBookResponse)
+                .build();
+        return ResponseEntity.ok(apiResponse);
+    }
+
     @GetMapping("/{slamBookId}")
     public ResponseEntity<ApiResponse<SlamBookResponse>> getSlamBookById(@PathVariable UUID slamBookId) {
 

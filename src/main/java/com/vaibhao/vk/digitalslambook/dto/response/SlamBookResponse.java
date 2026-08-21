@@ -35,6 +35,8 @@ public class SlamBookResponse {
 
     private String aboutMe;
 
+    private String shareToken;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

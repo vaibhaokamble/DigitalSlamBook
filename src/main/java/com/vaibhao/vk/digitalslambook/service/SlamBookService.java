@@ -8,11 +8,13 @@ import com.vaibhao.vk.digitalslambook.mapper.SlamBookMapper;
 import com.vaibhao.vk.digitalslambook.repository.SlamBookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class SlamBookService {
 
     private final SlamBookRepository slamBookRepository;
@@ -29,11 +31,24 @@ public class SlamBookService {
                 .favoriteColor(request.getFavoriteColor())
                 .hobbies(request.getHobbies())
                 .aboutMe(request.getAboutMe())
+                .shareToken(UUID.randomUUID().toString())
                 .build();
 
         SlamBook savedSlamBook = slamBookRepository.save(slamBook);
 
         return slamBookMapper.mapToResponse(savedSlamBook);
+    }
+
+    public java.util.List<SlamBookResponse> getAllSlamBooks() {
+        return slamBookRepository.findAll().stream()
+                .map(slamBookMapper::mapToResponse)
+                .toList();
+    }
+
+    public SlamBookResponse getSlamBookByShareToken(String shareToken) {
+        SlamBook slamBook = slamBookRepository.findByShareToken(shareToken)
+                .orElseThrow(() -> new ResourceNotFoundException("SlamBook not found with share token: " + shareToken));
+        return slamBookMapper.mapToResponse(slamBook);
     }
 
     public SlamBookResponse getSlamBookById(UUID slamBookId) {
