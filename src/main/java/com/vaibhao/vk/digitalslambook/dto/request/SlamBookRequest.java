@@ -36,6 +36,6 @@ public class SlamBookRequest {
     @Size(max = 10, message = "You can select maximum 10 hobbies")
     private List<@Size(max = 30, message = "Each hobby must not exceed 30 characters") String> hobbies;
 
-    @Size(max = 500, message = "About me must not exceed 500 characters")
+    @Size(max = 5000, message = "About me must not exceed 5000 characters")
     private String aboutMe;
 }

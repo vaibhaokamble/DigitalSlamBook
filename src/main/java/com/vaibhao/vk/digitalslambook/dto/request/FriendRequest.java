@@ -29,7 +29,7 @@ public class FriendRequest {
     @Past(message = "Friendship date must be in the past")
     private LocalDate friendshipDate;
 
-    @Size(max = 500, message = "Message must not exceed 500 characters")
+    @Size(max = 5000, message = "Message must not exceed 5000 characters")
     private String message;
 
     @Size(max = 100, message = "Song name must not exceed 100 characters")
@@ -38,15 +38,13 @@ public class FriendRequest {
     @Size(max = 100, message = "Song artist must not exceed 100 characters")
     private String songArtist;
 
-    @Size(max = 500, message = "Song URL must not exceed 500 characters")
     private String songUrl;
 
-    @Size(max = 500, message = "Song dedication must not exceed 500 characters")
+    @Size(max = 5000, message = "Song dedication must not exceed 5000 characters")
     private String songDedication;
 
-    @Size(max = 500, message = "Memory photo URL must not exceed 500 characters")
     private String memoryPhotoUrl;
 
-    @Size(max = 500, message = "Memory text must not exceed 500 characters")
+    @Size(max = 5000, message = "Memory text must not exceed 5000 characters")
     private String memoryText;
 }
