@@ -88,6 +88,13 @@ public class FileService {
                         .body(file.getBytes())
                         .retrieve()
                         .toBodilessEntity();
+                        
+                String publicUrl = supabaseUrl 
+                        + "/storage/v1/object/public/" 
+                        + bucket 
+                        + "/" 
+                        + storagePath;
+                return publicUrl;
             } catch (Exception e) {
                 System.err.println("Supabase upload failed, using local disk storage: " + e.getMessage());
             }

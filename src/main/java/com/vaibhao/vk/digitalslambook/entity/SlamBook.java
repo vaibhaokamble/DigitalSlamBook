@@ -30,6 +30,7 @@ public class SlamBook {
 
     private String nickName;
 
+    @Column(columnDefinition = "TEXT")
     private String profilePhotoUrl;
 
     private LocalDate dateOfBirth;
@@ -42,7 +43,7 @@ public class SlamBook {
     @ElementCollection
     private List<String> hobbies;
 
-    @Column(length = 500)
+    @Column(columnDefinition = "TEXT")
     private String aboutMe;
 
     @Column(unique = true)

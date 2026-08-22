@@ -32,20 +32,23 @@ public class Friend {
 
     private LocalDate friendshipDate;
 
-    @Column(length = 500)
+    @Column(columnDefinition = "TEXT")
     private String message;
 
     private String songName;
 
     private String songArtist;
 
+    @Column(columnDefinition = "TEXT")
     private String songUrl;
 
+    @Column(columnDefinition = "TEXT")
     private String songDedication;
 
+    @Column(columnDefinition = "TEXT")
     private String memoryPhotoUrl;
 
-    @Column(length = 500)
+    @Column(columnDefinition = "TEXT")
     private String memoryText;
 
     @ManyToOne(fetch = FetchType.LAZY)
